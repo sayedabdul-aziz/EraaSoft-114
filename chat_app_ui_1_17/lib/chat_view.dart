@@ -48,6 +48,7 @@ class ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
+      // PreferredSize
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         title: Text(
@@ -84,11 +85,31 @@ class ChatView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            CircleAvatar(
-                                radius: 30,
-                                backgroundImage: NetworkImage(
-                                  users[index].image,
-                                )),
+                            Stack(
+                              // alignment: Alignment.bottomRight,
+                              children: [
+                                // image
+                                CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(
+                                      users[index].image,
+                                    )),
+
+                                // badge
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: CircleAvatar(
+                                    radius: 10,
+                                    backgroundColor: AppColors.primaryColor,
+                                    child: const CircleAvatar(
+                                      radius: 7,
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                             const SizedBox(height: 10),
                             Text(
                               users[index].name.split(' ')[1],

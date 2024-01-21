@@ -1,4 +1,5 @@
 import 'package:chat_app_ui_1_17/colors.dart';
+import 'package:chat_app_ui_1_17/nav_bar.dart';
 import 'package:chat_app_ui_1_17/register_view.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +95,11 @@ class _LoginViewState extends State<LoginView> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           foregroundColor: AppColors.whiteColor),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const NavBarWidget(),
+                        ));
+                      },
                       child: const Text('LOGIN'))),
               const SizedBox(height: 20),
               Row(

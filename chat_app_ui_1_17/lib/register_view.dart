@@ -36,9 +36,9 @@ class _RegisterViewState extends State<RegisterView> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    label: const Text('Name'),
-                    fillColor: AppColors.greyColor,
-                    filled: true,
+                    // label: const Text('Name'),
+                    // fillColor: AppColors.greyColor,
+                    // filled: true,
                     // hintText: 'Email',
                     prefixIcon:
                         Icon(Icons.person, color: AppColors.primaryColor),
