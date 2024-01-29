@@ -3,10 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:taskati_1_24/core/network/local_storage.dart';
 import 'package:taskati_1_24/core/utils/app_colors.dart';
 import 'package:taskati_1_24/core/widgets/custom_btn.dart';
+import 'package:taskati_1_24/core/widgets/custom_error_dialog.dart';
+import 'package:taskati_1_24/features/home/home_view.dart';
 
 String? path;
+String name = '';
 
 class UploadView extends StatefulWidget {
   const UploadView({super.key});
@@ -20,7 +24,31 @@ class _UploadViewState extends State<UploadView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [TextButton(onPressed: () {}, child: const Text('Done'))],
+        actions: [
+          TextButton(
+              onPressed: () {
+                // image and name
+                // no image
+                // no name
+                // no image and no name
+                if (path != null && name.isNotEmpty) {
+                  AppLocal.cacheData(AppLocal.IMAGE_KEY, path);
+                  AppLocal.cacheData(AppLocal.NAME_KEY, name);
+                  AppLocal.cacheData(AppLocal.ISUPLOAD_KEY, true);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomeView(),
+                  ));
+                } else if (path == null && name.isNotEmpty) {
+                  showErrorDialog(context, 'Please Upload Your image');
+                } else if (path != null && name.isEmpty) {
+                  showErrorDialog(context, 'Enter Your Name');
+                } else {
+                  showErrorDialog(
+                      context, 'Please Upload Your image and Enter Your Name');
+                }
+              },
+              child: const Text('Done'))
+        ],
       ),
       body: Center(
         child: Padding(
@@ -63,6 +91,15 @@ class _UploadViewState extends State<UploadView> {
               ),
               const Gap(20),
               TextFormField(
+                // inputFormatters: [
+                //   FilteringTextInputFormatter.allow(RegExp(r'[a-z]'))
+                // ],
+                onChanged: (value) {
+                  setState(() {
+                    name = value;
+                  });
+                },
+                keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   hintText: 'Enter Your Name',
                   enabledBorder: OutlineInputBorder(
@@ -87,6 +124,7 @@ class _UploadViewState extends State<UploadView> {
   }
 
   uploadFromCamera() async {
+    // OPEN CAMERA AND PICK IMAGE
     var pickedImage = await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedImage != null) {
       setState(() {
