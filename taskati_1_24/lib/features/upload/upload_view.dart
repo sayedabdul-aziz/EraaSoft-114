@@ -24,6 +24,7 @@ class _UploadViewState extends State<UploadView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
         actions: [
           TextButton(
               onPressed: () {
@@ -66,7 +67,7 @@ class _UploadViewState extends State<UploadView> {
               ),
               const Gap(20),
               SizedBox(
-                  width: 200,
+                  width: 220,
                   height: 45,
                   child: CustomButton(
                       text: 'Upload From Camera',
@@ -75,7 +76,7 @@ class _UploadViewState extends State<UploadView> {
                       })),
               const Gap(7),
               SizedBox(
-                  width: 200,
+                  width: 220,
                   height: 45,
                   child: CustomButton(
                       text: 'Upload From Gallery',
@@ -100,20 +101,8 @@ class _UploadViewState extends State<UploadView> {
                   });
                 },
                 keyboardType: TextInputType.name,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter Your Name',
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: AppColors.redColor)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: AppColors.redColor)),
                 ),
               )
             ],
