@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insights_news_2_11/core/utils/app_colors.dart';
-import 'package:insights_news_2_11/features/home/home_view.dart';
+import 'package:insights_news_2_11/features/home/presentation/view/home_view.dart';
+import 'package:insights_news_2_11/features/profile/profile_view.dart';
+import 'package:insights_news_2_11/features/search/search_view.dart';
+import 'package:insights_news_2_11/features/source/source_view.dart';
 
 class NavBarWidget extends StatefulWidget {
   const NavBarWidget({super.key});
@@ -14,7 +17,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   int _index = 0;
   List<Widget> screens = [
     const HomeView(),
-    const HomeView(),
+    const SearchView(),
+    const SourceView(),
+    const ProfileView(),
   ];
   @override
   Widget build(BuildContext context) {

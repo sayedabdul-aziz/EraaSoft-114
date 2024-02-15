@@ -4,7 +4,7 @@ import 'package:insights_news_2_11/core/functions/routing.dart';
 import 'package:insights_news_2_11/core/services/local_storage.dart';
 import 'package:insights_news_2_11/core/utils/app_colors.dart';
 import 'package:insights_news_2_11/core/utils/text_styles.dart';
-import 'package:insights_news_2_11/features/home/nav_bar.dart';
+import 'package:insights_news_2_11/features/home/presentation/view/nav_bar.dart';
 import 'package:insights_news_2_11/features/upload/upload_view.dart';
 
 class SplashView extends StatefulWidget {

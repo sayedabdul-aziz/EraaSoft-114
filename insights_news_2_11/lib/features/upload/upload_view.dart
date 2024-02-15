@@ -9,7 +9,7 @@ import 'package:insights_news_2_11/core/services/local_storage.dart';
 import 'package:insights_news_2_11/core/utils/app_colors.dart';
 import 'package:insights_news_2_11/core/utils/text_styles.dart';
 import 'package:insights_news_2_11/core/widgets/custom_btn.dart';
-import 'package:insights_news_2_11/features/home/home_view.dart';
+import 'package:insights_news_2_11/features/home/presentation/view/nav_bar.dart';
 
 String? path;
 String name = '';
@@ -37,7 +37,7 @@ class _UploadViewState extends State<UploadView> {
                   AppLocal.cacheData(AppLocal.IMAGE_KEY, path);
                   AppLocal.cacheData(AppLocal.NAME_KEY, name);
                   AppLocal.cacheData(AppLocal.ISUPLOAD_KEY, true);
-                  pushWithReplacment(context, const HomeView());
+                  pushWithReplacment(context, const NavBarWidget());
                 } else if (path == null && name.isNotEmpty) {
                   showErrorDialog(context, 'Please Upload Your image');
                 } else if (path != null && name.isEmpty) {
