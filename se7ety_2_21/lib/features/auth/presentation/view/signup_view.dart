@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:se7ety_2_21/core/functions/email_validate.dart';
+import 'package:se7ety_2_21/core/functions/routing.dart';
 import 'package:se7ety_2_21/core/utils/app_colors.dart';
 import 'package:se7ety_2_21/core/utils/text_styles.dart';
 import 'package:se7ety_2_21/core/widgets/custom_dialogs.dart';
 import 'package:se7ety_2_21/features/auth/presentation/view-model/auth_cubit.dart';
 import 'package:se7ety_2_21/features/auth/presentation/view-model/auth_states.dart';
+import 'package:se7ety_2_21/features/auth/presentation/view/doctor_upload_view.dart';
 import 'package:se7ety_2_21/features/auth/presentation/view/login_view.dart';
 
 class RegisterView extends StatefulWidget {
@@ -24,8 +26,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   bool isVisable = true;
 
-  String handleUserType(int index) {
-    return index == 0 ? 'دكتور' : 'مريض';
+  String handleUserType() {
+    return widget.index == 0 ? 'دكتور' : 'مريض';
   }
 
   @override
@@ -33,7 +35,7 @@ class _RegisterViewState extends State<RegisterView> {
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          debugPrint('Doneeee');
+          pushAndRemoveUntil(context, const DoctorUploadData());
         } else if (state is RegisterErrorState) {
           Navigator.pop(context);
           showErrorDialog(context, state.error);
@@ -57,7 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'سجل حساب جديد كـ "${handleUserType(widget.index)}"',
+                      'سجل حساب جديد كـ "${handleUserType()}"',
                       style: getTitleStyle(),
                     ),
                     const SizedBox(height: 30),
@@ -131,17 +133,17 @@ class _RegisterViewState extends State<RegisterView> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              // if (widget.index == 0) {
-                              context.read<AuthCubit>().registerPatient(
-                                  _displayName.text,
-                                  _emailController.text,
-                                  _passwordController.text);
-                              // } else {
-                              //   context.read<AuthCubit>().registerPatient(
-                              //       _displayName.text,
-                              //       _emailController.text,
-                              //       _passwordController.text);
-                              // }
+                              if (widget.index == 0) {
+                                context.read<AuthCubit>().registerDoctor(
+                                    _displayName.text,
+                                    _emailController.text,
+                                    _passwordController.text);
+                              } else {
+                                context.read<AuthCubit>().registerPatient(
+                                    _displayName.text,
+                                    _emailController.text,
+                                    _passwordController.text);
+                              }
                             }
                           },
                           style: ElevatedButton.styleFrom(

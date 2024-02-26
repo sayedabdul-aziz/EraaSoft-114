@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:se7ety_2_21/features/auth/data/doctor_model.dart';
 import 'package:se7ety_2_21/features/auth/presentation/view-model/auth_states.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
@@ -17,11 +18,12 @@ class AuthCubit extends Cubit<AuthStates> {
         email: email,
         password: password,
       );
+      // uid and email
       User user = credential.user!;
       user.updateDisplayName(name);
 
       // firestore
-      FirebaseFirestore.instance.collection('doctors').doc(user.uid).set({
+      FirebaseFirestore.instance.collection('doctor').doc(user.uid).set({
         'name': name,
         'image': null,
         'specialization': null,
@@ -79,6 +81,28 @@ class AuthCubit extends Cubit<AuthStates> {
       } else {
         emit(RegisterErrorState(error: 'حدثت مشكله فالتسجيل'));
       }
+    }
+  }
+
+  uploadDoctorData(DoctorModel doctor) {
+    emit(UploadDoctorDataLoadingState());
+
+    try {
+      FirebaseFirestore.instance.collection('doctor').doc(doctor.id).set({
+        'image': doctor.image,
+        'specialization': doctor.specialization,
+        'rating': doctor.rating,
+        'phone1': doctor.phone1,
+        'phone2': doctor.phone2,
+        'bio': doctor.bio,
+        'openHour': doctor.openHour,
+        'closeHour': doctor.closeHour,
+        'address': doctor.address,
+      }, SetOptions(merge: true));
+
+      emit(UploadDoctorDataSuccessState());
+    } catch (e) {
+      emit(UploadDoctorDataErrorState(error: 'حدثت مشكله حاول لاحقا'));
     }
   }
 }

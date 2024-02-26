@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:se7ety_2_21/features/intro/presentation/view/onboarding_view.dart';
+import 'package:se7ety_2_21/features/intro/presentation/view/welcom_view.dart';
+import 'package:se7ety_2_21/features/patient/home/presentation/nav_bar.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -9,22 +11,22 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  // User? user;
-  // Future<void> _getUser() async {
-  //   user = FirebaseAuth.instance.currentUser;
-  // }
+  User? user;
+  Future<void> _getUser() async {
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   void initState() {
     super.initState();
-    // _getUser();
+    _getUser();
     Future.delayed(
       const Duration(seconds: 4),
       () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const OnboardingView()
-            // (user != null) ? const PatientMainPage() : const WelcomeView(),
-            ));
+          builder: (context) =>
+              (user != null) ? const PatientMainPage() : const WelcomeView(),
+        ));
       },
     );
   }
